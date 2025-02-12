@@ -1,9 +1,13 @@
 .container-header{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    background-color: #333;
+    background-color: #B967C7;
     color: white;
     border-radius: 0px;
-    height: 100px;
+    height: 60px;
+}
+
+.icon-planet {
+    font-size: 40px; /* Ajuste o tamanho conforme necessário */
 }

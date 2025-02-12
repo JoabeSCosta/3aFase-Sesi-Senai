@@ -1,0 +1,22 @@
+.button-demo2{
+    background-color: #B967C7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    height: 50px;
+}
+
+.button-demo2:hover {
+    background-color: #9b4fa5;
+}
+
+.container-demo2{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
