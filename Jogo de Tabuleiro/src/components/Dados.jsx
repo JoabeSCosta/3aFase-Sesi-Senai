@@ -21,14 +21,23 @@ function Dados() {
         setCardQuatro("/Cards4/card-"+d+"-spades.svg")
     }
 
+    function resetar() {
+      setCardUm('/Cards/card-Joker.svg')
+      setCardDois('/Cards/card-Joker.svg')
+      setCardTres('/Cards/card-Joker.svg')
+      setCardQuatro('/Cards/card-Joker.svg')
+    }
+
   return (
-    <div>
+    <div className='container-cartas'>
         <h1>Gire as Cartas</h1>
+        <div className='div-cartas'>
         <img src={cardUm} alt="" onClick={Roletar}/>
         <img src={cardDois} alt="" onClick={Roletar}/>
         <img src={cardTres} alt="" onClick={Roletar}/>
         <img src={cardQuatro} alt="" onClick={Roletar}/>
-
+        </div>
+        <button className='bttn-card' onClick={resetar}>Resetar</button>
     </div>
   )
 }

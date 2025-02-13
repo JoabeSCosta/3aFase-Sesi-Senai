@@ -4,3 +4,23 @@ img {
     object-fit: cover;
     border-radius: 10px;
 }
+
+.container-cartas{
+    background-image: url('mesa.webp'); 
+    height: 800px;
+    width: 800px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.div-cartas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+}
+
+.bttn-card{
+    margin-top: 500px;
+}

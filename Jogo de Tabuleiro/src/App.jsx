@@ -6,7 +6,6 @@ function App() {
 
   return (
     <>
-      <img src="mesa.webp" alt="" />
       <Dados />
         
     </>
