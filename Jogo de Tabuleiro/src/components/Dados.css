@@ -1,5 +1,5 @@
 img {
-    width: 100px;
+    width: 130px;
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
@@ -22,5 +22,5 @@ img {
 }
 
 .bttn-card{
-    margin-top: 500px;
+    margin-top: 470px;
 }

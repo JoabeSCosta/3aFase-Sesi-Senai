@@ -8,17 +8,25 @@ function Dados() {
     const [cardTres, setCardTres] = useState('/Cards/card-Joker.svg')
     const [cardQuatro, setCardQuatro] = useState('/Cards/card-Joker.svg')
 
-    function Roletar() {
-   
-        const a = Math.floor(Math.random() * 13) + 1
-        const b = Math.floor(Math.random() * 13) + 1
-        const c = Math.floor(Math.random() * 13) + 1
-        const d = Math.floor(Math.random() * 13) + 1
+    function RoletarCardUm() {
+      const a = Math.floor(Math.random() * 13) + 1
+      setCardUm("/Cards/card-"+a+"-clubs.svg")
+      
+    }
 
-        setCardUm("/Cards/card-"+a+"-clubs.svg")
-        setCardDois("/Cards2/card-"+b+"-diamonds.svg")
-        setCardTres("/Cards3/card-"+c+"-hearts.svg")
-        setCardQuatro("/Cards4/card-"+d+"-spades.svg")
+    function RoletarCardDois() {
+      const b = Math.floor(Math.random() * 13) + 1
+      setCardDois("/Cards2/card-"+b+"-diamonds.svg")
+    }
+
+    function RoletarCardTres() {
+      const c = Math.floor(Math.random() * 13) + 1
+      setCardTres("/Cards3/card-"+c+"-hearts.svg")
+    }
+
+    function RoletarCardQuatro() {
+      const d = Math.floor(Math.random() * 13) + 1
+      setCardQuatro("/Cards4/card-"+d+"-spades.svg")
     }
 
     function resetar() {
@@ -32,10 +40,10 @@ function Dados() {
     <div className='container-cartas'>
         <h1>Gire as Cartas</h1>
         <div className='div-cartas'>
-        <img src={cardUm} alt="" onClick={Roletar}/>
-        <img src={cardDois} alt="" onClick={Roletar}/>
-        <img src={cardTres} alt="" onClick={Roletar}/>
-        <img src={cardQuatro} alt="" onClick={Roletar}/>
+        <img src={cardUm} alt="" onClick={RoletarCardUm}/>
+        <img src={cardDois} alt="" onClick={RoletarCardDois}/>
+        <img src={cardTres} alt="" onClick={RoletarCardTres}/>
+        <img src={cardQuatro} alt="" onClick={RoletarCardQuatro}/>
         </div>
         <button className='bttn-card' onClick={resetar}>Resetar</button>
     </div>
