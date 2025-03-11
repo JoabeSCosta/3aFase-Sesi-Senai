@@ -1,0 +1,12 @@
+13. Sistema de Gestão de Recursos Humanos
+Descrição: Desenvolva um sistema para gerenciar funcionários, folhas de pagamento e benefícios.
+
+Funcionalidades:
+
+Cadastro de funcionários e departamentos.
+
+Controle de ponto e folha de pagamento.
+
+Gestão de benefícios e treinamentos.
+
+Relatórios de desempenho e turnover.
