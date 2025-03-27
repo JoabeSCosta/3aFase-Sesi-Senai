@@ -1,0 +1,19 @@
+.divCadastrarLivros{
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: flex-start;
+    margin-top: 50px;
+}
+
+.bttnCad{
+    display: flex;
+    background-color: #f9d62e ;
+    margin-left: 10px;
+}
+
+.divBttn{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+}
