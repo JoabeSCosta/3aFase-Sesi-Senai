@@ -1,36 +1,36 @@
 class GeometriaService {
     // Área do triângulo: (base * altura) / 2
-    static areaTriangulo(base, altura) {
+    areaTriangulo(base, altura) {
         return (base * altura) / 2;
     }
 
     // Área do quadrado: lado * lado
-    static areaQuadrado(lado) {
+    areaQuadrado(lado) {
         return lado * lado;
     }
 
     // Área do retângulo: base * altura
-    static areaRetangulo(base, altura) {
+    areaRetangulo(base, altura) {
         return base * altura;
     }
 
     // Área da circunferência: π * raio^2
-    static areaCircunferencia(raio) {
+    areaCircunferencia(raio) {
         return Math.PI * Math.pow(raio, 2);
     }
 
     // Volume da esfera: (4/3) * π * raio^3
-    static volumeEsfera(raio) {
+    volumeEsfera(raio) {
         return (4 / 3) * Math.PI * Math.pow(raio, 3);
     }
 
     // Volume do cubo: lado^3
-    static volumeCubo(lado) {
+    volumeCubo(lado) {
         return Math.pow(lado, 3);
     }
 
     // Volume do cilindro: π * raio^2 * altura
-    static volumeCilindro(raio, altura) {
+    volumeCilindro(raio, altura) {
         return Math.PI * Math.pow(raio, 2) * altura;
     }
 }

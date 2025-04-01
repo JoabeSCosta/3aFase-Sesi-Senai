@@ -1,7 +1,6 @@
 {
   "dependencies": {
-    "testes": "file:",
-    "yarn": "^1.22.22"
+    "testes": "file:"
   },
   "name": "testes",
   "version": "1.0.0",

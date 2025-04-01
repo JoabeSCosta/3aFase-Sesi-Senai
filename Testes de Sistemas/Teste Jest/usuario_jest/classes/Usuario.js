@@ -1,4 +1,4 @@
-class User {
+class Usuario {
     constructor(document, name, email, password, confirmPassword, cep) {
         this.document = document;
         this.name = name;
@@ -58,3 +58,5 @@ class User {
         return true;
     }
 }
+
+module.exports = Usuario;
