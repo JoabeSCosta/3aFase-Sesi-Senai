@@ -1,0 +1,29 @@
+GET http://localhost:3270/ 
+
+###
+
+POST http://localhost:3270/rapaiz 
+Content-Type: application/json
+
+{
+    "nome": "verde"
+}
+
+###
+
+POST http://localhost:3270/usuario
+Content-Type: application/json
+
+{
+    "id": 3,
+    "nome": "Chaves"
+}
+
+###
+
+PUT http://localhost:3270/usuario
+Content-Type: application/json
+
+{
+    "id": 3
+}
