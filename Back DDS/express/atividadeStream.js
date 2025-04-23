@@ -1,31 +1,3 @@
-/*# atividade stream (callback)
-
-## 🔥 Versão Evoluída: Loja com Carrinho e Vários Pagamentos
-
-### 🎯 Cenário:
-
-Temos um **carrinho de compras** com vários pedidos. Cada pedido tem:
-
-- o **nome do cliente**
-- o **valor**
-- o **tipo de pagamento** (cartão, boleto, pix, cripto)
-
-Vamos:
-
-1. Filtrar só pedidos com valor acima de R$100 (com `filter`)
-2. Mapear os pedidos para preparar os callback dos dados (`map`)
-3. Processar os pagamentos com `forEach`, usando **callbacks diferentes**
-
-dados para processamento
-
-const pedidos = [
-{ cliente: "Ana", valor: 150.00, tipo: "cartao" },
-{ cliente: "Bruno", valor: 89.90, tipo: "boleto" },
-{ cliente: "Carla", valor: 120.00, tipo: "pix" },
-{ cliente: "Diego", valor: 250.00, tipo: "cripto" },
-{ cliente: "Erica", valor: 45.00, tipo: "cartao" },
-];*/
-
 const pedidos = [
     { cliente: "Ana", valor: 150.00, tipo: "cartao" },
     { cliente: "Bruno", valor: 89.90, tipo: "boleto" },
