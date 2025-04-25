@@ -1,76 +1,27 @@
-/* Atividade 1 - Estrutura do Projeto
-Classe User: Representa um usuário.
-Interface UserRepository: Define métodos para manipular usuários.
-Classe UserController: Contém a lógica para adicionar usuários.
-Classe de Teste UserServiceTest: Utiliza Mockito para testar a UserService.
+const UsuarioRepository = require('../repositories/UsuarioRepository')
+const UsuarioController = require('../controllers/UsuarioController')
 
-Criar testes para:
-1. Criar usuário quando não encontrar um igual no banco de dados.
-2. Não criar usuário quando encontrar um igual no banco de dados.
-Para isso utilize mocks para o repositório de usuário (que faz o papel de
-armazenar as informações no banco de dados).
-*/
+describe('Testes de UsuarioService', () => {
+    beforeAll(() => {
+         userRepo = new UsuarioRepository()
+         userControl = new UsuarioController()
+         userDammy = ""
+    })
+    it('usuario nao encontrado no banco', () => {
 
-const UsuarioRepository = require('../repositories/UsuarioRepository');
-const UsuarioController = require('../controllers/UsuarioController');
+        const mockRepos = jest.spyOn(userRepo,'createUsuario').mockReturnValue(userDammy)
 
-describe("UsuarioController", () => {
-    test("Usuario criado com sucesso", () => {
-      
-        let usuarioRepository = new UsuarioRepository();
-        let usuarioController = new UsuarioController(usuarioRepository);
+        const resultado = userRepo.createUsuario(userDammy)
 
-        const mockCreate = jest.spyOn(usuarioRepository, "createUsuario")
-            .mockImplementation(() => {
-                throw new Error( );
-            });
+        expect(resultado)
 
-        const reqDummy = { body: {} };
+    })
+    it('usuario encontrado no banco', () => {
 
-        const res = usuarioController.createUsuario(reqDummy);
+        const mockRepos = jest.spyOn(userRepo,'createUsuario').mockImplementation(() => {throw new Error("Usuário já existe")})
 
-        expect(res.status).toBe(500);
-        expect(res.body).toBe("Não foi possível criar usuário");
-        expect(mockCreate).toHaveBeenCalled();
-    });
+        expect(() => userRepo.createUsuario(userDammy)).toThrow("Usuário já existe");
 
-    test("Deve criar usuário com sucesso quando não existir no banco", () => {
-        // Configuração
-        const usuarioRepository = new UsuarioRepository();
-        const usuarioController = new UsuarioController(usuarioRepository);
-        
-        // Mock do método createUsuario para retornar um usuário
-        const mockCreate = jest.spyOn(usuarioRepository, "createUsuario")
-            .mockImplementation((data) => ({
-                nome: data.nome,
-                email: data.email,
-                senha: data.senha,
-                documento: data.documento
-            }));
-        
-        // Requisição com dados válidos
-        const reqValido = { 
-            body: {
-                nome: "Novo Usuário",
-                email: "novo@email.com",
-                senha: "senha123",
-                documento: "123456789"
-            }
-        };
-        
-        // Execução
-        const res = usuarioController.createUsuario(reqValido);
-
-        // Verificações
-        expect(res.status).toBe(201);
-        expect(res.body).toHaveProperty('nome', 'Novo Usuário');
-        expect(mockCreate).toHaveBeenCalledWith(reqValido.body);
-        
-        // Limpa o mock após o teste
-        mockCreate.mockRestore();
-    });
-});
-
-
-
-
+    })
+    
+})

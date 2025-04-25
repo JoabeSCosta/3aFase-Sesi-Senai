@@ -1,44 +1,56 @@
-import {express} from 'express';
+import express from 'express';
 
+const app = express();
+
+let alunos = []
+    
 app.use(express.json());
 
-let items = [
+app.get('/alunos', (req, res) => {
+    res.json(alunos);
+  });
 
-    {id: 1, nome: "Arroz", marca: "Tio Joao", preco: "6,39"},
-    {id: 2, nome: "Feijão", marca: "Caldao", preco: "13.99"},
-    {id: 3, nome: "Macarrão", marca: "Renata", preco: "4.99"},
-]
+  app.post('/alunos', (req, res) => {
+    const { nome, matricula, status } = req.body;
+  
+    if(!nome || !matricula){
+      return res.status(400).json({
+        mensagem: "Campo esta faltando"
+      })
+    }
 
-app.get('/items', (req, res) => {
-    res.json({mensagem: "Bem-Vindo!"});
-});
+    if(status !== "ativo" && status !== "negativo"){
+      return res.status(400).json({
+        mensagem: "Campo status esta incorreto"
+      })
+    }
 
-app.post('/items', (req, res) => {
-    const {nome, marca, preco} = req.body;
-    let numerosId = items.map(item => item.id);
-    let id = Math.max(...numerosId) + 1
-    items.push({
-        id,
-        nome,
-        marca,
-        preco
-    });
+    if (alunos.length > 0){
+      const verificamatricula = alunos.filter((aluno) => aluno.matricula === alunos.matricula)
+      if (verificamatricula){
+        return res.status(400).json({
+          mensagem: "Matricula já cadastrada",
+          matricula: matricula
+        })
+      }
+    }
 
-    res.json({
-        mensagem: "Dados recebidos com sucesso!",
-        dados: {nome,marca, preco}
-    });
-});
-
-
-app.delete('/items/:idItem', (req, res) => {
-    const (idItem) = req.params;
-
-    items.filter(item =>{
-        return item.id != idItem
+    alunos.push({
+      nome,
+      matricula,
+      status
     })
-
+  
     res.json({
-        mensagem: "Dado deletado com sucesso!",
-    })
-});
+      mensagem: "Novo Aluno Cadastrado com sucesso",
+      body: { nome, matricula, status }
+    });
+  });
+  
+  app.post('/alunos/notas', (req, res) => {
+    const { nome, matricula, status } = req.body;
+  })
+
+app.listen(3000, () => {
+    console.log('Servidor rodando na porta 3000');
+  });

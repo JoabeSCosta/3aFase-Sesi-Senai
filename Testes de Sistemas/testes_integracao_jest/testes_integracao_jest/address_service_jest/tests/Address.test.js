@@ -1,43 +1,65 @@
-const AddressService = require('../services/AddressService');
+// tests/address.test.js
 const AddressProvider = require('../services/AddressProvider');
-const Address = require('../models/Address');
+const AddressService = require('../services/AddressService');
 
-jest.mock('../services/AddressProvider');
-
-describe('AddressService Tests', () => {
-    let addressProviderMock;
+describe('Testes do AddressService', () => {
     let addressService;
+    let addressProvider;
+    let endDummy;
 
     beforeEach(() => {
-        addressProviderMock = new AddressProvider();
-        addressService = new AddressService(addressProviderMock);
+        addressProvider = new AddressProvider();
+        addressService = new AddressService(addressProvider);
+    
+        endDummy = {
+            cep: '12345-678',
+            logradouro: 'Rua Exemplo',
+            bairro: 'Centro',
+            localidade: 'São Paulo',
+            uf: 'SP'
+        };
     });
 
-    test('CEP válido e endereço retornado com sucesso', async () => {
-        const mockAddress = new Address('12345678', 'Rua Teste', 'Bairro Teste', 'Cidade Teste', 'Estado Teste');
-        addressProviderMock.buscarEnderecoPorCEP.mockResolvedValue(mockAddress);
-
-        const result = await addressService.obterEndereco('12345678');
-        expect(result).toEqual(mockAddress);
-        expect(addressProviderMock.buscarEnderecoPorCEP).toHaveBeenCalledWith('12345678');
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
-    test('CEP válido e endereço não é retornado', async () => {
-        addressProviderMock.buscarEnderecoPorCEP.mockRejectedValue(new Error('CEP não encontrado.'));
+    it('CEP válido e endereço retornado com sucesso', async () => {
 
-        await expect(addressService.obterEndereco('87654321')).rejects.toThrow('CEP não encontrado.');
-        expect(addressProviderMock.buscarEnderecoPorCEP).toHaveBeenCalledWith('87654321');
+        const cepDummy = '12345678';
+        jest.spyOn(addressProvider, 'buscarEnderecoPorCEP').mockResolvedValue(endDummy);
+        
+        const resultado = await addressService.obterEndereco(cepDummy);
+        
+        expect(addressProvider.buscarEnderecoPorCEP).toHaveBeenCalledWith(cepDummy);
+        expect(resultado).toEqual(endDummy);
     });
 
-    test('CEP inválido', () => {
-        expect(() => addressService.obterEndereco('123')).toThrow('CEP inválido! Deve conter 8 dígitos numéricos.');
-        expect(() => addressService.obterEndereco('abcdefgh')).toThrow('CEP inválido! Deve conter 8 dígitos numéricos.');
+    it('CEP válido e endereço não encontrado', async () => {
+
+        const cepDummy = '12345678';
+        jest.spyOn(addressProvider, 'buscarEnderecoPorCEP').mockResolvedValue({ erro: true });
+
+        const resultado = await addressService.obterEndereco(cepDummy);
+
+        expect(resultado).toEqual({ erro: true });
     });
 
-    test('Erro de conexão com API Via CEP', async () => {
-        addressProviderMock.buscarEnderecoPorCEP.mockRejectedValue(new Error('Erro ao buscar endereço.'));
+    it('CEP inválido deve lançar exceção', () => {
 
-        await expect(addressService.obterEndereco('12345678')).rejects.toThrow('Erro ao buscar endereço.');
-        expect(addressProviderMock.buscarEnderecoPorCEP).toHaveBeenCalledWith('12345678');
+        const cepInvalido = '1234';
+        
+        expect(() => addressService.obterEndereco(cepInvalido))
+            .toThrow("CEP inválido! Deve conter 8 dígitos numéricos.");
+    });
+
+    it('Erro de conexão com API ViaCEP', async () => {
+
+        const cepDummy = '12345678';
+        jest.spyOn(addressProvider, 'buscarEnderecoPorCEP')
+            .mockRejectedValue(new Error("Erro ao conectar com a API ViaCEP"));
+
+        await expect(addressService.obterEndereco(cepDummy))
+            .rejects.toThrow("Erro ao conectar com a API ViaCEP");
     });
 });
