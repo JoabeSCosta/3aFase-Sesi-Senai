@@ -1,61 +1,78 @@
-import express from 'express';
+import express from 'express'
 
-const app = express();
+const app = express()
+app.use(express.json())
 
-let items = [
-  {id: 1, nome:"Arroz", marca:"Tio Joao", preco:"6.39"},
-  {id: 2, nome:"Feijao", marca:"Caldao", preco:"13.99"},
-  {id: 3, nome:"Cafe", marca:"Pilao", preco:"20.99"},
+const alunos = [
+
 ];
 
-app.use(express.json());
 
-app.get('/items', (req, res) => {
-  res.json(items);
-});
+app.post('/alunos', (req, res) => {
+  const { nome, matricula, status } = req.body
+  if (!nome || !matricula) {
+    return res.status(400).json({
+      mensagem: 'Campo esta faltando',
+    });
+  }
 
-app.post('/items', (req, res) => {
-  const { nome, marca, preco } = req.body;
+  if (status !== 'ativo' && status !== 'inativo') {
+    return res.status(400).json({
+      mensagem: 'Campo status esta incorreto',
+    });
+  }
 
-  const numerosId = items.map(item => {
-    return item.id;
-  });
-  let id = Math.max(...numerosId) + 1;
+  if (alunos.length > 0) {
 
-  items.push({
-    id,
+    console.log('if Rodado')
+    const verificaMatricula = alunos.filter((aluno) => aluno.matricula === alunos.matricula)
+    if (verificaMatricula) {
+      return res.status(400).json({
+        mensagem: 'Matrícula já cadastrada',
+        matricula: matricula
+      });
+    }
+
+  }
+
+  alunos.push({
     nome,
-    marca,
-    preco
+    matricula,
+    status
   })
-
   res.json({
-    mensagem: "Dados recebidos com sucesso!",
-    body: { nome, marca, preco }
-  });
-});
-
-app.delete('/items/:idItem',(req, res) => {
-
-  const {idItem} = req.params;
-
-  console.log("idItem", idItem)
-
-  items = items.filter(item => {
-    return item.id != idItem;
-  });
-
-  res.json({
-    mensagem: "Dado deletado com sucesso!",
+    mensagem: 'Dados Recebidos com sucesso',
+    body: { nome, matricula, status }
   })
 })
 
-app.listen(3000, () => {
-  console.log('Servidor rodando na porta 3000');
+app.post('/alunos/:matricula/notas', (req, res) => {
+  const { notas } = req.body
+  const {matricula} = req.params
+  
+  if (notas.length != 4) {
+    return res.status(400).json({
+      mensagem: `Numero de notas obrigatorias é 4 ex: "[1,2,3,4]" `
+    })
+  }
+  const alunoIndex = alunos.findIndex(aluno => aluno.matricula === matricula)
+  if (alunoIndex === -1) {
+    return res.status(400).json({
+      mensagem:`Aluno com a a matricula " ${matricula} " não foi encontrado`
+    })
+    }else{
+      alunos[alunoIndex].notas = notas
+    }
+    return res.status(200).json({
+      mensagem: `Notas Inseridas corretamente ${notas}`,
+      body: {
+        matricula,
+        notas
+      }
+    })
+  
+})
+
+app.listen(3000, 'localhost', () => {
+  console.log("Servidor rodando em http://localhost:3000");
 });
-
-
-
-
-
-
