@@ -71,14 +71,12 @@ app.get('/alunos/inativos', (req, res) => {
       })
     }
 
-    if (alunos.length > 0){
-      const verificamatricula = alunos.filter((aluno) => aluno.matricula === alunos.matricula)
-      if (verificamatricula){
-        return res.status(400).json({
-          mensagem: "Matricula já cadastrada",
-          matricula: matricula
-        })
-      }
+    const verificamatricula = alunos.filter((aluno) => aluno.matricula === matricula);
+    if (verificamatricula.length > 0) {
+      return res.status(400).json({
+        mensagem: "Matricula já cadastrada",
+        matricula: matricula
+      });
     }
 
     alunos.push({
