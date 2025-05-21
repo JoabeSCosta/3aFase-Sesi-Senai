@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CardContent, Stack, Card, Box, Typography, Divider, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import Navbar from './components/Navbar';
 
 function App() {
   const [nome, setNome] = useState('');
@@ -38,8 +39,10 @@ function App() {
         <Typography variant="h3" color="black">
         Escola
         </Typography>
+  
         </Box>
         {/* Main Content */}
+        <Navbar />
         <Box
           sx={{
             flex: 1,
